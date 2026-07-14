@@ -1,0 +1,188 @@
+import { c as createServerFn, i as TSS_SERVER_FUNCTION } from "./createServerFn-BfDQLD5K.mjs";
+import { a as recordType, i as objectType, n as enumType, o as stringType, r as numberType, t as anyType } from "../_libs/zod.mjs";
+import processModule from "node:process";
+//#region node_modules/.nitro/vite/services/ssr/assets/server.functions-_fCmN7lp.js
+var createServerRpc = (serverFnMeta, splitImportFn) => {
+	const url = "/_serverFn/" + serverFnMeta.id;
+	return Object.assign(splitImportFn, {
+		url,
+		serverFnMeta,
+		[TSS_SERVER_FUNCTION]: true
+	});
+};
+async function getAdmin() {
+	const { supabaseAdmin } = await import("./client.server-Bw6iWMJ-.mjs");
+	return supabaseAdmin;
+}
+function randToken() {
+	const bytes = /* @__PURE__ */ new Uint8Array(24);
+	crypto.getRandomValues(bytes);
+	return Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+async function verifyAdminToken(token) {
+	if (!token) return false;
+	const { data } = await (await getAdmin()).from("admin_sessions").select("token, expires_at").eq("token", token).maybeSingle();
+	if (!data) return false;
+	return new Date(data.expires_at).getTime() > Date.now();
+}
+var adminLogin_createServerFn_handler = createServerRpc({
+	id: "6dd6d12753780ea85661fe4a62bcc18127ff613adab92d7b95a1918d7b368474",
+	name: "adminLogin",
+	filename: "src/lib/server.functions.ts"
+}, (opts) => adminLogin.__executeServer(opts));
+var adminLogin = createServerFn({ method: "POST" }).inputValidator((d) => objectType({ pin: stringType() }).parse(d)).handler(adminLogin_createServerFn_handler, async ({ data }) => {
+	const adminPin = processModule.env.ADMIN_PIN || "xvzaxl";
+	if (data.pin !== adminPin) return { ok: false };
+	const db = await getAdmin();
+	const token = randToken();
+	await db.from("admin_sessions").insert({ token });
+	return {
+		ok: true,
+		token
+	};
+});
+var adminCheck_createServerFn_handler = createServerRpc({
+	id: "1f905922289d3294b9272d86822811841cef2a7bbd770d5d1cb05174e3bbc9a3",
+	name: "adminCheck",
+	filename: "src/lib/server.functions.ts"
+}, (opts) => adminCheck.__executeServer(opts));
+var adminCheck = createServerFn({ method: "POST" }).inputValidator((d) => objectType({ token: stringType() }).parse(d)).handler(adminCheck_createServerFn_handler, async ({ data }) => ({ ok: await verifyAdminToken(data.token) }));
+function collectImageUrls(value, out) {
+	if (!value) return;
+	if (typeof value === "string") {
+		if (/^https?:\/\/.+\.(jpe?g|png|webp)(\?|$)/i.test(value) || /^https?:\/\/.+\/api\/proxy/i.test(value)) out.add(value);
+		return;
+	}
+	if (Array.isArray(value)) {
+		value.forEach((item) => collectImageUrls(item, out));
+		return;
+	}
+	if (typeof value === "object") {
+		const record = value;
+		collectImageUrls(record.url, out);
+		collectImageUrls(record.src, out);
+		collectImageUrls(record.image, out);
+		collectImageUrls(record.image_url, out);
+		collectImageUrls(record.image_list, out);
+		collectImageUrls(record.photos, out);
+		Object.values(record).forEach((item) => collectImageUrls(item, out));
+	}
+}
+function normalizeQcUrl(url) {
+	if (url.startsWith("https://qcitems.com/api/proxy")) return url;
+	return url.startsWith("//") ? `https:${url}` : url;
+}
+var scrapeQC_createServerFn_handler = createServerRpc({
+	id: "8d334d35bed0729ea6b5bfffb9c8a47f0be775520d75d592d27a29302e244365",
+	name: "scrapeQC",
+	filename: "src/lib/server.functions.ts"
+}, (opts) => scrapeQC.__executeServer(opts));
+var scrapeQC = createServerFn({ method: "POST" }).inputValidator((d) => objectType({ link: stringType() }).parse(d)).handler(scrapeQC_createServerFn_handler, async ({ data }) => {
+	const normalized = data.link.trim().replace(/^(https?:\/\/)m\./i, "$1");
+	const imageSet = /* @__PURE__ */ new Set();
+	try {
+		const res = await fetch(`https://www.tymixfinds.pl/api/qc?url=${encodeURIComponent(normalized)}`, {
+			headers: {
+				"User-Agent": "Mozilla/5.0",
+				Accept: "application/json",
+				Referer: "https://www.tymixfinds.pl/qc-finder"
+			},
+			redirect: "follow"
+		});
+		if (res.ok) collectImageUrls(await res.json(), imageSet);
+	} catch {}
+	return { images: Array.from(imageSet).map(normalizeQcUrl).filter((url) => !/logo|icon|favicon|sprite/i.test(url)).slice(0, 80).map((url) => ({ url })) };
+});
+var AdminHeader = objectType({ token: stringType() });
+async function requireAdmin(token) {
+	if (!await verifyAdminToken(token)) throw new Error("Unauthorized");
+	return getAdmin();
+}
+function slugify(input) {
+	return input.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ł/g, "l").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80) || `item-${Date.now().toString(36)}`;
+}
+var adminUpsertProduct_createServerFn_handler = createServerRpc({
+	id: "5260b32302f2abb8ca914d577cdd453040bedd778a1fb3097269b749e16ed5ca",
+	name: "adminUpsertProduct",
+	filename: "src/lib/server.functions.ts"
+}, (opts) => adminUpsertProduct.__executeServer(opts));
+var adminUpsertProduct = createServerFn({ method: "POST" }).inputValidator((d) => AdminHeader.extend({ product: objectType({
+	id: stringType().uuid().optional(),
+	name: stringType().min(1),
+	link: stringType().min(1),
+	price_cny: numberType().nullable().optional(),
+	image_url: stringType().nullable().optional(),
+	category: stringType().nullable().optional()
+}) }).parse(d)).handler(adminUpsertProduct_createServerFn_handler, async ({ data }) => {
+	const db = await requireAdmin(data.token);
+	const row = {
+		...data.product,
+		brand_id: null,
+		category_id: null,
+		badge: null,
+		is_draft: false
+	};
+	const { data: saved, error } = await db.from("products").upsert(row).select().single();
+	if (error) throw new Error(error.message);
+	return saved;
+});
+var adminDelete_createServerFn_handler = createServerRpc({
+	id: "1524f235d394817299c5e116757b627c36e499226d4969504214c8475b496eb2",
+	name: "adminDelete",
+	filename: "src/lib/server.functions.ts"
+}, (opts) => adminDelete.__executeServer(opts));
+var adminDelete = createServerFn({ method: "POST" }).inputValidator((d) => AdminHeader.extend({
+	table: enumType([
+		"products",
+		"tutorials",
+		"tutorial_steps",
+		"sellers"
+	]),
+	id: stringType().uuid()
+}).parse(d)).handler(adminDelete_createServerFn_handler, async ({ data }) => {
+	const { error } = await (await requireAdmin(data.token)).from(data.table).delete().eq("id", data.id);
+	if (error) throw new Error(error.message);
+	return { ok: true };
+});
+var adminUpsertGeneric_createServerFn_handler = createServerRpc({
+	id: "4058a1f4bce725df20e899585217c33ea453f432f3e4be12b6b2aff955f2d0e5",
+	name: "adminUpsertGeneric",
+	filename: "src/lib/server.functions.ts"
+}, (opts) => adminUpsertGeneric.__executeServer(opts));
+var adminUpsertGeneric = createServerFn({ method: "POST" }).inputValidator((d) => AdminHeader.extend({
+	table: enumType([
+		"sellers",
+		"tutorials",
+		"tutorial_steps"
+	]),
+	row: recordType(stringType(), anyType())
+}).parse(d)).handler(adminUpsertGeneric_createServerFn_handler, async ({ data }) => {
+	const db = await requireAdmin(data.token);
+	const row = { ...data.row };
+	if ((data.table === "tutorials" || data.table === "sellers") && !row.slug) {
+		const source = typeof row.title === "object" && row.title && (row.title.pl || row.title.en) || row.name || row.title || "";
+		row.slug = slugify(String(source));
+	}
+	const { data: saved, error } = await db.from(data.table).upsert(row).select().single();
+	if (error) throw new Error(error.message);
+	return saved;
+});
+var adminSetConfig_createServerFn_handler = createServerRpc({
+	id: "3b99fd5d73f39e3419b845b450e346e392ec5705ecd2c4e2cb3dca38dca8e4d7",
+	name: "adminSetConfig",
+	filename: "src/lib/server.functions.ts"
+}, (opts) => adminSetConfig.__executeServer(opts));
+var adminSetConfig = createServerFn({ method: "POST" }).inputValidator((d) => AdminHeader.extend({
+	key: stringType(),
+	value: anyType()
+}).parse(d)).handler(adminSetConfig_createServerFn_handler, async ({ data }) => {
+	const { error } = await (await requireAdmin(data.token)).from("site_config").upsert({
+		key: data.key,
+		value: data.value,
+		updated_at: (/* @__PURE__ */ new Date()).toISOString()
+	});
+	if (error) throw new Error(error.message);
+	return { ok: true };
+});
+//#endregion
+export { adminCheck_createServerFn_handler, adminDelete_createServerFn_handler, adminLogin_createServerFn_handler, adminSetConfig_createServerFn_handler, adminUpsertGeneric_createServerFn_handler, adminUpsertProduct_createServerFn_handler, scrapeQC_createServerFn_handler };

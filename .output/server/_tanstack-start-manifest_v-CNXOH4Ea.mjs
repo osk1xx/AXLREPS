@@ -1,0 +1,121 @@
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-CNXOH4Ea.js
+var tsrStartManifest = () => ({ routes: {
+	__root__: {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/__root.tsx",
+		children: [
+			"/",
+			"/legal",
+			"/products",
+			"/qc",
+			"/tracking",
+			"/wtyczka",
+			"/admin/login",
+			"/sellers/$slug",
+			"/tutorials/$slug",
+			"/admin/",
+			"/sellers/",
+			"/tutorials/"
+		],
+		preloads: [
+			"/assets/index-DqIaiM0Y.js",
+			"/assets/jsx-runtime-bzQ4Vb5N.js",
+			"/assets/link-DAj9DqUe.js",
+			"/assets/createClientRpc-Bpi3rywN.js",
+			"/assets/useRouter-CGK8is6s.js",
+			"/assets/useNavigate-BRisgksT.js",
+			"/assets/useTranslation-BSHa8nyu.js"
+		],
+		scripts: [{ attrs: {
+			type: "module",
+			async: !0,
+			src: "/assets/index-DqIaiM0Y.js"
+		} }]
+	},
+	"/": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/index.tsx",
+		children: void 0,
+		preloads: [
+			"/assets/routes-Bww5AyDR.js",
+			"/assets/ProductCard-9DNeA_0K.js",
+			"/assets/Skeleton-CvEpoX7G.js"
+		]
+	},
+	"/legal": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/legal.tsx",
+		children: void 0,
+		preloads: ["/assets/legal-0ZP5FT6r.js"]
+	},
+	"/products": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/products.tsx",
+		children: void 0,
+		preloads: [
+			"/assets/products-Bi7BKI-R.js",
+			"/assets/ProductCard-9DNeA_0K.js",
+			"/assets/categories-Dnw0vCHH.js",
+			"/assets/Skeleton-CvEpoX7G.js"
+		]
+	},
+	"/qc": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/qc.tsx",
+		children: void 0,
+		preloads: ["/assets/qc-pOFBvIP6.js", "/assets/Skeleton-CvEpoX7G.js"]
+	},
+	"/tracking": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/tracking.tsx",
+		children: void 0,
+		preloads: ["/assets/tracking-C82YfgO1.js"]
+	},
+	"/wtyczka": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/wtyczka.tsx",
+		children: void 0,
+		preloads: ["/assets/wtyczka-CipKmGHL.js"]
+	},
+	"/admin/login": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/admin.login.tsx",
+		children: void 0,
+		preloads: ["/assets/admin.login-DfFWmLtM.js", "/assets/admin-session-DslIhPv3.js"]
+	},
+	"/sellers/$slug": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/sellers.$slug.tsx",
+		children: void 0,
+		preloads: [
+			"/assets/sellers._slug-uYoXFAfb.js",
+			"/assets/Skeleton-CvEpoX7G.js",
+			"/assets/text-CjLc2j9h.js"
+		]
+	},
+	"/tutorials/$slug": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/tutorials.$slug.tsx",
+		children: void 0,
+		preloads: [
+			"/assets/tutorials._slug-CTPhbjZo.js",
+			"/assets/Skeleton-CvEpoX7G.js",
+			"/assets/text-CjLc2j9h.js"
+		]
+	},
+	"/admin/": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/admin.index.tsx",
+		children: void 0,
+		preloads: [
+			"/assets/admin.index-DJs5OLHR.js",
+			"/assets/admin-session-DslIhPv3.js",
+			"/assets/categories-Dnw0vCHH.js"
+		]
+	},
+	"/sellers/": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/sellers.index.tsx",
+		children: void 0,
+		preloads: ["/assets/sellers.index-DzMkzTeI.js", "/assets/Skeleton-CvEpoX7G.js"]
+	},
+	"/tutorials/": {
+		filePath: "C:/Users/48796/Documents/AXELREPS/src/routes/tutorials.index.tsx",
+		children: void 0,
+		preloads: [
+			"/assets/tutorials.index-fHjZwlmZ.js",
+			"/assets/Skeleton-CvEpoX7G.js",
+			"/assets/text-CjLc2j9h.js"
+		]
+	}
+} });
+//#endregion
+export { tsrStartManifest };

@@ -1,0 +1,9 @@
+node_modules/
+.output/
+.wrangler/
+.pnpm-store/
+.tanstack/
+.env
+.env.*
+!.env.example
+*.log

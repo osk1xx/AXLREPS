@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Download, Puzzle, Zap, ShieldCheck, Link as LinkIcon } from "lucide-react";
 import { KakobuyLogo } from "@/components/LitBuyLogo";
-import heroAsset from "@/assets/content.png.asset.json";
-import convertAsset from "@/assets/co1ntent.png.asset.json";
-import trackerAsset from "@/assets/co2ntent.png.asset.json";
+import heroAsset from "@/assets/content.png";
+import convertAsset from "@/assets/co1ntent.png";
+import trackerAsset from "@/assets/co2ntent.png";
 
 const STORE_URL =
   "https://chromewebstore.google.com/detail/piacoinkgpkkccfldddaajfpdconkfmb?utm_source=item-share-cb";
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/wtyczka")({
         content:
           "AxelReps – KakoBuy Tools to darmowa wtyczka do Chrome, która konwertuje linki z 1688, Taobao i Weidian prosto na KakoBuy i pokazuje przewidywaną datę dostawy paczki.",
       },
-      { property: "og:image", content: heroAsset.url },
+      { property: "og:image", content: heroAsset },
     ],
   }),
 });
@@ -60,7 +60,7 @@ function Wtyczka() {
           </div>
         </div>
         <div className="rounded-3xl overflow-hidden border bg-card/40 shadow-2xl">
-          <img src={heroAsset.url} alt="AxelReps KakoBuy Tool — wtyczka do Chrome" className="w-full h-auto" />
+          <img src={heroAsset} alt="AxelReps KakoBuy Tool — wtyczka do Chrome" className="w-full h-auto" />
         </div>
       </section>
 
@@ -97,7 +97,7 @@ function Wtyczka() {
       {/* Showcase image 1 */}
       <section className="mt-20 grid md:grid-cols-2 gap-10 items-center">
         <div className="rounded-3xl overflow-hidden border bg-card/40 shadow-2xl order-2 md:order-1">
-          <img src={convertAsset.url} alt="Konwersja linków 1688, Taobao, Weidian → KakoBuy" className="w-full h-auto" />
+          <img src={convertAsset} alt="Konwersja linków 1688, Taobao, Weidian → KakoBuy" className="w-full h-auto" />
         </div>
         <div className="order-1 md:order-2">
           <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight">
@@ -133,7 +133,7 @@ function Wtyczka() {
           </a>
         </div>
         <div className="rounded-3xl overflow-hidden border bg-card/40 shadow-2xl">
-          <img src={trackerAsset.url} alt="Przewidywana data dostawy paczki KakoBuy" className="w-full h-auto" />
+          <img src={trackerAsset} alt="Przewidywana data dostawy paczki KakoBuy" className="w-full h-auto" />
         </div>
       </section>
 

@@ -103,6 +103,7 @@ if (!i18n.isInitialized) {
     resources,
     lng: "pl",
     fallbackLng: "pl",
+    initImmediate: false,
     interpolation: { escapeValue: false },
     // returnObjects=false so t("landing") never renders "..,.." from a nested obj.
     returnObjects: false,

@@ -1,6 +1,6 @@
-import kakobuyLogo from "@/assets/kakobuy-logo.png.asset.json";
+import kakobuyLogo from "@/assets/kakobuy-logo.png";
 
-export const KAKOBUY_LOGO_URL = kakobuyLogo.url;
+export const KAKOBUY_LOGO_URL = kakobuyLogo;
 // Legacy re-export so existing imports keep working.
 export const LITBUY_LOGO_URL = KAKOBUY_LOGO_URL;
 

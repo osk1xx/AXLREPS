@@ -1,1 +1,0 @@
-import{t as e}from"./jsx-runtime-bzQ4Vb5N.js";var t=e();function n({className:e=``}){return(0,t.jsx)(`div`,{className:`skeleton ${e}`})}function r(){return(0,t.jsxs)(`div`,{className:`space-y-3`,children:[(0,t.jsx)(n,{className:`aspect-square w-full`}),(0,t.jsx)(n,{className:`h-4 w-3/4`}),(0,t.jsx)(n,{className:`h-4 w-1/3`})]})}export{n,r as t};

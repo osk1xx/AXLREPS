@@ -1,1 +1,0 @@
-function e(e,t,n=`pl`){if(!e)return``;if(typeof e==`string`)return e;let r=e;return r[t]||r[n]||Object.values(r).find(e=>e)||``}export{e as t};

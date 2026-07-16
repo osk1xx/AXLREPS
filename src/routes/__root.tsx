@@ -7,13 +7,14 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { I18nextProvider } from "react-i18next";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GiftFAB } from "@/components/GiftFAB";
-import "@/lib/i18n";
+import i18n from "@/lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -84,11 +85,13 @@ function RootComponent() {
   const path = useRouter().state.location.pathname;
   const isAdmin = path.startsWith("/admin");
   return (
-    <QueryClientProvider client={queryClient}>
-      {!isAdmin && <Header />}
-      <main className="min-h-[60vh]"><Outlet /></main>
-      {!isAdmin && <Footer />}
-      {!isAdmin && <GiftFAB />}
-    </QueryClientProvider>
+    <I18nextProvider i18n={i18n}>
+      <QueryClientProvider client={queryClient}>
+        {!isAdmin && <Header />}
+        <main className="min-h-[60vh]"><Outlet /></main>
+        {!isAdmin && <Footer />}
+        {!isAdmin && <GiftFAB />}
+      </QueryClientProvider>
+    </I18nextProvider>
   );
 }

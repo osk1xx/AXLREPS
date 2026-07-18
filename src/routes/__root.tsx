@@ -72,10 +72,28 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const browserConfig = typeof window !== "undefined"
+    ? (window as typeof window & { __AXELREPS_CONFIG__?: Record<string, string> }).__AXELREPS_CONFIG__
+    : undefined;
+  const serverEnv = typeof process !== "undefined" ? process.env : undefined;
+  const publicConfig = browserConfig ?? {
+    SUPABASE_URL: serverEnv?.SUPABASE_URL ?? "",
+    SUPABASE_PUBLISHABLE_KEY: serverEnv?.SUPABASE_PUBLISHABLE_KEY ?? "",
+  };
+  const serializedConfig = JSON.stringify(publicConfig).replace(/</g, "\\u003c");
+
   return (
     <html lang="pl">
       <head><HeadContent /></head>
-      <body>{children}<Scripts /></body>
+      <body>
+        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.__AXELREPS_CONFIG__=${serializedConfig}`,
+          }}
+        />
+        <Scripts />
+      </body>
     </html>
   );
 }

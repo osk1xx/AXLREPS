@@ -163,7 +163,7 @@ function ProductsAdmin() {
             <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full px-3 py-2.5 border rounded-lg bg-background mt-1" placeholder="np. Nike Tech Fleece" />
           </div>
           <div className="md:col-span-2">
-            <label className="text-xs text-muted-foreground">Link (Weidian / Taobao / 1688 / KakoBuy)</label>
+            <label className="text-xs text-muted-foreground">Link (KakoBuy)</label>
             <input value={form.link} onChange={(e) => setForm({ ...form, link: e.target.value })} className="w-full px-3 py-2.5 border rounded-lg bg-background mt-1" placeholder="https://..." />
           </div>
           <div>

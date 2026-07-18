@@ -1,5 +1,5 @@
 export const CATEGORIES = [
-  "buty",
+  "Buty",
   "bluzy",
   "koszulki",
   "swetry",
